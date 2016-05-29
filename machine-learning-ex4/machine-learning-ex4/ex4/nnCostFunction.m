@@ -61,15 +61,26 @@ Theta2_grad = zeros(size(Theta2));
     M2=log(1-a3);
     N1=-y;
     N2=-(1-y);
-    J=(1/m)*sum(sum(N1.*M1+N2.*M2));
+    J1=(1/m)*sum(sum(N1.*M1+N2.*M2));
+    
+%     calculate the regularization
+
+    temp1=sum(sum(Theta1.^2))-sum(sum(Theta1(:,1).^2));
+    temp2=sum(sum(Theta2.^2))-sum(sum(Theta2(:,1).^2));
+%     temp1=sum(Theta1.^2)-sum(Theta1(:,1).^2);
+%     temp2=sum(Theta2.^2)-sum(Theta2(:,1).^2);
+%     temp2=sum(sum(Theta1.^2+Theta2.^2));
+    J2=(lambda/(2*m))*(temp1+temp2);
+    
+    J=J1+J2;
+
+
+
 % J=(1/m)*sum(N1.*M1+N2.*M2)+lambda/(2*m)*(sum(theta.^2)-theta(1,1)^2);
 %Gradient;
 % rio=[0;ones((length(theta)-1),1)];
 %other way: rio=ones(length(theta),1);rio(1,1)=0;
 % grad=(1/m)*X'*(M-y)+(lambda/m)*theta.*rio;
-
-
-
 
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
