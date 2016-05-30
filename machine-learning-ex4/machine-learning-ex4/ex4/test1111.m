@@ -102,6 +102,133 @@ Theta2_grad = zeros(size(Theta2));
    Theta1_grad=1/m*D1;
    grad = [Theta1_grad(:) ; Theta2_grad(:)];
    
-    
+ %% test the maxtier and lambda for diffent value.  
+clear ; close all; clc
+
+
+input_layer_size  = 400;  % 20x20 Input Images of Digits
+hidden_layer_size = 25;   % 25 hidden units
+num_labels = 10;          % 10 labels, from 1 to 10   
+                          % (note that we have mapped "0" to label 10)
+
+load('ex4data1.mat');
+m = size(X, 1);
+load('ex4weights.mat');
+% Unroll parameters 
+nn_params = [Theta1(:) ; Theta2(:)];
+
+initial_Theta1 = randInitializeWeights(input_layer_size, hidden_layer_size);
+initial_Theta2 = randInitializeWeights(hidden_layer_size, num_labels);
+
+% Unroll parameters
+initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
+
+
+fprintf('\nTraining Neural Network... \n')
+
+%  After you have completed the assignment, change the MaxIter to a larger
+%  value to see how more training helps.
+options1 = optimset('MaxIter', 500);
+options2 = optimset('MaxIter', 100);
+options3 = optimset('MaxIter', 300);
+%  You should also try different values of lambda
+lambda1 = 0.1;
+lambda2 = 1;
+lambda3 = 3;
+
+% Create "short hand" for the cost function to be minimized
+costFunction1 = @(p) nnCostFunction(p, ...
+                                   input_layer_size, ...
+                                   hidden_layer_size, ...
+                                   num_labels, X, y, lambda1); 
+% Now, costFunction is a function that takes in only one argument (the
+% neural network parameters)
+[nn_params1, cost1] = fmincg(costFunction1, initial_nn_params, options1);
+
+% Obtain Theta1 and Theta2 back from nn_params
+Theta11 = reshape(nn_params1(1:hidden_layer_size * (input_layer_size + 1)), ...
+                 hidden_layer_size, (input_layer_size + 1));
+
+Theta21 = reshape(nn_params1((1 + (hidden_layer_size * (input_layer_size + 1))):end), ...
+                 num_labels, (hidden_layer_size + 1));
+fprintf('\nVisualizing Neural Network... \n')
+figure;
+displayData(Theta11(:, 2:end));
+
+pred1 = predict(Theta11, Theta21, X);
+
+fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred1 == y)) * 100);            
+             
+  
+             
+             
+             
+             
+costFunction2 = @(p) nnCostFunction(p, ...
+                                   input_layer_size, ...
+                                   hidden_layer_size, ...
+                                   num_labels, X, y, lambda2); 
+% Now, costFunction is a function that takes in only one argument (the
+% neural network parameters)
+[nn_params2, cost2] = fmincg(costFunction2, initial_nn_params, options2);
+
+% Obtain Theta1 and Theta2 back from nn_params
+Theta12 = reshape(nn_params2(1:hidden_layer_size * (input_layer_size + 1)), ...
+                 hidden_layer_size, (input_layer_size + 1));
+
+Theta22 = reshape(nn_params2((1 + (hidden_layer_size * (input_layer_size + 1))):end), ...
+                 num_labels, (hidden_layer_size + 1));
+fprintf('\nVisualizing Neural Network... \n')
+figure;
+displayData(Theta12(:, 2:end));
+
+pred2 = predict(Theta12, Theta22, X);
+
+fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred2 == y)) * 100); 
+             
+             
+             
+             
+             
+             
+costFunction3 = @(p) nnCostFunction(p, ...
+                                   input_layer_size, ...
+                                   hidden_layer_size, ...
+                                   num_labels, X, y, lambda3); 
+% Now, costFunction is a function that takes in only one argument (the
+% neural network parameters)
+[nn_params3, cost3] = fmincg(costFunction3, initial_nn_params, options3);
+
+% Obtain Theta1 and Theta2 back from nn_params
+Theta13 = reshape(nn_params3(1:hidden_layer_size * (input_layer_size + 1)), ...
+                 hidden_layer_size, (input_layer_size + 1));
+
+Theta23 = reshape(nn_params3((1 + (hidden_layer_size * (input_layer_size + 1))):end), ...
+                 num_labels, (hidden_layer_size + 1));
+
+
+
+fprintf('\nVisualizing Neural Network... \n')
+figure;
+displayData(Theta13(:, 2:end));
+
+pred3 = predict(Theta13, Theta23, X);
+
+fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred3 == y)) * 100);
+
+%%  if subtract the theta11 theta12 theta13 and display them again.
+Theta1111=Theta11-Theta12;
+figure;
+displayData(Theta1111(:, 2:end));
+
+Theta2222=Theta12-Theta13;
+figure;
+displayData(Theta2222(:, 2:end));
+
+Theta3333=Theta11-Theta13;
+figure;
+displayData(Theta3333(:, 2:end));
+
+
 
 

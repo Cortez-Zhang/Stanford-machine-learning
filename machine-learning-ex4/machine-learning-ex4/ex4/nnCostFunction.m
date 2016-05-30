@@ -145,7 +145,7 @@ Theta2_grad = zeros(size(Theta2));
     %obtain the unregularized gradient
    Theta2_grad=1/m*D2;
    Theta1_grad=1/m*D1;
-   grad = [Theta1_grad(:) ; Theta2_grad(:)];
+%  grad = [Theta1_grad(:) ; Theta2_grad(:)]; %move to part 3
    
 
 
@@ -156,6 +156,18 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
+
+
+    rio1=ones(size(Theta1));
+    rio1(:,1)=0;
+    rio2=ones(size(Theta2));
+    rio2(:,1)=0;
+    Theta2_grad=Theta2_grad+(lambda/m)*Theta2.*rio2;
+    Theta1_grad=Theta1_grad+(lambda/m)*Theta1.*rio1;
+    grad = [Theta1_grad(:) ; Theta2_grad(:)];
+
+
+
 
 
 
