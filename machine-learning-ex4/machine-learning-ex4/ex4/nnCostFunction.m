@@ -76,12 +76,6 @@ Theta2_grad = zeros(size(Theta2));
 
 
 
-% J=(1/m)*sum(N1.*M1+N2.*M2)+lambda/(2*m)*(sum(theta.^2)-theta(1,1)^2);
-%Gradient;
-% rio=[0;ones((length(theta)-1),1)];
-%other way: rio=ones(length(theta),1);rio(1,1)=0;
-% grad=(1/m)*X'*(M-y)+(lambda/m)*theta.*rio;
-
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
 %         the cost function with respect to Theta1 and Theta2 in Theta1_grad and
@@ -97,7 +91,62 @@ Theta2_grad = zeros(size(Theta2));
 %               over the training examples if you are implementing it for the 
 %               first time.
 %
-
+%for loop version------------------
+%     for t=1:m
+%         %step1
+%          a1=X(t,:);     % tth example
+%          z2=a1*Theta1'; %weight value 
+%          a2=sigmoid(z2);%activation
+%          a2=[ones(1,1),a2];%add a20=1
+%          z3=a2*Theta2'; %weight value 
+%          a3=sigmoid(z3);%activation        
+%          %step2
+%          delta3=a3-y(t,:);
+%          %step3
+%          delta2=(delta3*Theta2(:,(2:end))).*(sigmoidGradient(z2));%this section
+%                                                                   %didn't
+%                                                                   %count
+%                                                                   %the
+%                                                                   %delta0
+%          %step4
+% %        delta2=delta2(2:end);
+%          delta=0;
+%          delta=delta+delta3'*a2;
+%     end
+%     %obtain the unregularized gradient
+%     grad=1/m*delta;
+%for loop version------------------
+%  without for loop verion.  
+          
+%step1
+         a1=X;     % tth example
+         z2=a1*Theta1'; %weight value 
+         a2=sigmoid(z2);%activation
+         a2=[ones(m,1),a2];%add a20=1
+         z3=a2*Theta2'; %weight value 
+         a3=sigmoid(z3);%activation        
+         %step2
+         delta3=a3-y;
+         %step3
+         delta2=(delta3*Theta2(:,(2:end))).*(sigmoidGradient(z2));%this section
+                                                                  %didn't
+                                                                  %count
+                                                                  %the
+                                                                  %delta0
+         %step4
+%        delta2=delta2(2:end);
+         
+         D2=0;
+         D1=0;
+         D2=D2+delta3'*a2;
+         D1=D1+delta2'*a1;
+         
+   
+    %obtain the unregularized gradient
+   Theta2_grad=1/m*D2;
+   Theta1_grad=1/m*D1;
+   grad = [Theta1_grad(:) ; Theta2_grad(:)];
+   
 
 
 % Part 3: Implement regularization with the cost function and gradients.

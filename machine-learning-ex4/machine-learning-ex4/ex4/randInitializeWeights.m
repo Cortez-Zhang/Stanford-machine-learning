@@ -19,6 +19,13 @@ W = zeros(L_out, 1 + L_in);
 % Note: The first row of W corresponds to the parameters for the bias units
 %
 
+epsilon_init = 0.12;% this value should choosing based on the number of units.
+                    % A good choice is 
+                    % epsilon_init=sqrt(6)/sqrt(L_in + L_out);
+                    % where L_in=S(l)
+                    % L_out=S(l+1) are the number of units in the layers
+                    % adjacent to theta(l)
+W = rand(L_out, 1 + L_in) * 2 * epsilon_init-epsilon_init;
 
 
 
