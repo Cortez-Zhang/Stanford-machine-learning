@@ -46,8 +46,8 @@ error_val = zeros(length(lambda_vec), 1);
           % and error_val(i)
           [theta] = trainLinearReg(X, y, lambda);
           [error_train(i,1), grad_train(:,i)] = linearRegCostFunction( X,...
-                                        y, theta, 0);%set lambda=0;
-                                   
+                                        y(1:i), theta, 0);%set lambda=0;
+                                    % calculate the first i examples' error
           [error_val(i,1), grad_val(:,i)] = linearRegCostFunction( Xval,...
                                         yval, theta, 0);%set lambda=0;
                                     % calculate the whole val set's error  
