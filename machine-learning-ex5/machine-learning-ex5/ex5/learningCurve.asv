@@ -62,7 +62,8 @@ error_val   = zeros(m, 1);
                                     % calculate the first i examples' error
           [error_val(i,1), grad_val(:,i)] = linearRegCostFunction( Xval,...
                                         yval, theta, 0);%set lambda=0;
-                                    % calculate the whole val set's error       
+                                    % calculate the whole val set's error 
+          
          
           
       end
