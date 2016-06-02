@@ -218,3 +218,42 @@ end
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
+%% ungraded exercise 3.4&3.5 self code
+
+lambda = 3;
+[theta] = trainLinearReg(X_poly, y, lambda);
+[error_test, grad_test] = linearRegCostFunction( X_poly_test,...
+                                        ytest, theta, 0);%set lambda=0;
+                                    % calculate the whole val set's error  
+fprintf('Test Error\n');
+fprintf(' \t%f\n', error_test);
+
+% random choose examples 
+
+lambda = 0.01;
+iter=50;               %50 times random 
+for i=1:iter
+%first random choose
+
+index=randperm(m);      %Generate the random index
+X_poly=X_poly(index,:); 
+y=y(index,:);           %Generate the random X_poly and y.
+
+% [theta] = trainLinearReg(X_poly, y, lambda);
+[error_train_temp(:,i), error_val_temp(:,i)] = ...
+    learningCurve(X_poly, y, X_poly_val, yval, lambda);
+% error_train(:,i)=error_train_temp;
+% error_val(:,i)=error_val_temp;
+end
+%then calculate the mean error_val and error_train
+error_train=sum(error_train_temp,2)/iter;
+error_val=sum(error_val_temp,2)/iter;
+
+figure;
+plot(1:m, error_train, 1:m, error_val);
+title(sprintf('Polynomial Regression Learning Curve (lambda = %f)', lambda));
+xlabel('Number of training examples')
+ylabel('Error')
+axis([0 13 0 100])
+legend('Train', 'Cross Validation')
+
