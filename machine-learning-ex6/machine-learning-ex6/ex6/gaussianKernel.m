@@ -15,8 +15,9 @@ sim = 0;
 %               sigma
 %
 %
-
-
+% Compute the kernel
+diff = x1-x2;
+sim=exp(-diff'*diff/(2*(sigma^2)));
 
 
 

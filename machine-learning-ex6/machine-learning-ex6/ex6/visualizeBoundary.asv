@@ -18,8 +18,7 @@ end
 
 % Plot the SVM boundary
 hold on
-% contour(X1, X2, vals, [0 0], 'Color', 'b');% can not draw the boundry in
-% part 5. find the answer in disscusion. 
+% contour(X1, X2, vals, [0 0], 'Color', 'b');% can not draw the bo
 contour(X1, X2, vals, [1 1], 'b');
 hold off;
 
