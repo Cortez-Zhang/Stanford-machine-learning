@@ -27,9 +27,10 @@ sigma_test=[0.01; 0.03; 0.1; 0.3; 1; 3; 10; 30];
 for i=1:length(C_test)
     for j=1:length(sigma_test)
     model(i,j)= svmTrain(X, y, C_test(i), @(x1, x2) gaussianKernel(x1, x2, sigma_test(j))); 
-    predictions(:,i*j) = svmPredict(model(i,j), Xval);    
-%     figure;
-%     visualizeBoundary(X, y, model(i,j)); show the figure.
+    predictions(:,i*j) = svmPredict(model(i,j), Xval);
+    figure;
+    subplot(length(C_test),length(sigma_test)),
+    visualizeBoundary(X, y, model(i,j));
     value(i,j)= mean(double(predictions(:,i*j) ~= yval));
     end
 end
