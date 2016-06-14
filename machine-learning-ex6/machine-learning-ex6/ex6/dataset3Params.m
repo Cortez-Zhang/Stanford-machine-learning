@@ -38,7 +38,7 @@ end
 % IND = sub2ind(siz,I,J) % the method of switch index and sub-index 
 [temp,index]=min(value(:));
 s = size(value);
-[I,J] = ind2sub(s,index);
+[I,J] = ind2sub(s,index); %find the index of the min.
 
 C=C_test(I);
 sigma=sigma_test(J);
