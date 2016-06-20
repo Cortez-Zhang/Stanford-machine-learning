@@ -29,7 +29,7 @@ for j=1:K
     
     index = find(idx==j);
     [r,c]=size(X(index,:));
-    centroids(j,:)=sum(X(index,:))/r;
+    centroids=
 
 end
 
