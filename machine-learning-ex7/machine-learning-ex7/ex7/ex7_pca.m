@@ -185,7 +185,7 @@ pause;
 %  pixel colors of an image. We first visualize this output in 3D, and then
 %  apply PCA to obtain a visualization in 2D.
 
-close all; close all; clc
+close all; clear all; clc
 
 % Re-load the image from the previous exercise and run K-Means on it
 % For this to work, you need to complete the K-Means assignment first
