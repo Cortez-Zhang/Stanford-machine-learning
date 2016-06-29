@@ -21,20 +21,8 @@ sigma2 = zeros(n, 1);
 %               should contain variance of the i-th feature.
 %
 
-mu = mean(X);
-mu=mu';
-% sigma = std(X); % Need normalized by N
-sigma = std(X,1);
-% S = std(A,w);
-% When w = 0 (default), S is normalized by N-1. 
-% When w = 1, S is normalized by the number of observations,
-% N. w also can be a weight vector containing nonnegative elements. 
-sigma2=(sigma.^2)';
-% mu = mean(X);
-% X_norm = bsxfun(@minus, X, mu);
-% 
-% sigma = std(X_norm);
-% X_norm = bsxfun(@rdivide, X_norm, sigma);
+mu=1/m*sum(X);
+sigma2=
 
 
 
