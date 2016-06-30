@@ -40,8 +40,7 @@ xlabel('Latency (ms)');
 ylabel('Throughput (mb/s)');
 
 fprintf('Program paused. Press enter to continue.\n');
-pause
-
+pause;
 
 %% ================== Part 2: Estimate the dataset statistics ===================
 %  For this exercise, we assume a Gaussian distribution for the dataset.

@@ -30,6 +30,10 @@ sigma = std(X,1);
 % When w = 1, S is normalized by the number of observations,
 % N. w also can be a weight vector containing nonnegative elements. 
 sigma2=(sigma.^2)';
+
+
+
+
 % mu = mean(X);
 % X_norm = bsxfun(@minus, X, mu);
 % 
