@@ -46,14 +46,14 @@ temp=X*Theta'.*R - Y.*R;
 % J=1/2*sum(sum(temp.^2));
 J=1/2*sum(sum(temp.^2))+ lambda/2*(sum(sum(Theta.^2))+sum(sum(X.^2)));%regularization
 %
-X_grad=temp*Theta;
-Theta_grad=temp'*X;
 
-%
-
+% X_grad=temp*Theta;
+% Theta_grad=temp'*X;
 
 
-
+%regularization
+X_grad=temp*Theta+lambda*X;
+Theta_grad=temp'*X+lambda*Theta;
 
 
 
